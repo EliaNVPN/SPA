@@ -13,8 +13,6 @@ jobs:
     steps:
     - name: Checkout repository content
       uses: actions/checkout@v2
-     with: 
-node-version: '20'
 
     - name: Install Git LFS
       run: |
@@ -26,7 +24,7 @@ node-version: '20'
     - name: Download zip file
       run: |
         echo "Starting download..."
-        wget http://audio1.wordfree.net/bibles/app/audio/7_1.zip -O 1.zip
+        wget http://audio1.wordfree.net/bibles/app/audio/7_1.zip p -O 1.zip
         if [ $? -eq 0 ]; then
           echo "Download completed successfully."
         else
@@ -46,7 +44,7 @@ node-version: '20'
     - name: Unzip file
       run: |
         echo "Unzipping file..."
-        unzip 1.zip -d Fr_Lous
+        unzip 1.zip -d FR
         if [ $? -eq 0 ]; then
           echo "Unzipping completed successfully."
         else
@@ -54,10 +52,10 @@ node-version: '20'
           exit 1
         fi
 
-    - name: List contents of Fr_Lous folder
+    - name: List contents of FR folder
       run: |
-        echo "Contents of Fr_Lous folder:"
-        ls -l Fr_Lous
+        echo "Contents of FR folder:"
+        ls -l FR
 
     - name: Configure git
       run: |
@@ -67,13 +65,13 @@ node-version: '20'
     - name: Track large files with Git LFS
       run: |
         echo "Tracking large files with Git LFS..."
-        cd Fr_Lous
+        cd FR
         git lfs track "*"
         cd ..
 
     - name: Add changes to git
       run: |
-        git add Fr_Lous
+        git add FR
         if [ $? -eq 0 ]; then
           echo "Files added to git successfully."
         else
@@ -83,7 +81,7 @@ node-version: '20'
 
     - name: Commit changes
       run: |
-        git commit -m 'Add unzipped files to Fr_Lous folder'
+        git commit -m 'Add unzipped files to FR folder'
         if [ $? -eq 0 ]; then
           echo "Commit successful."
         else
